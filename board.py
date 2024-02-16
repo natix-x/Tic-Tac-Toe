@@ -31,8 +31,9 @@ class Board:
             canvas.grid(row=row, column=col)
 
             if self.check_if_win():
-                messagebox.showinfo("Game Over", "Player wins!")
-                return
+                messagebox.showinfo("Game Over", f"Player {self.current_player} wins!")
+            elif self.check_if_tie():
+                messagebox.showinfo("Game Over", "TIE!")
 
             self.current_player = "O" if self.current_player == "X" else "X"
 
@@ -75,8 +76,10 @@ class Board:
             == self.buttons[2][2]["text"]
         ):
             return True
-        else:
-            return False
 
     def check_if_tie(self):
-        pass
+        for i in range(3):
+            for j in range(3):
+                if self.buttons[i][j]["text"] == " ":
+                        return False
+        return True
