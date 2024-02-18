@@ -10,29 +10,29 @@ class GameLogic:
                 == self.buttons[i][1]["text"]
                 == self.buttons[i][2]["text"]
             ):
-                return True
+                return [(i, 0), (i, 1), (i, 2)]  # Return winning row
             elif (
                 self.buttons[0][i]["text"] != " "
                 and self.buttons[0][i]["text"]
                 == self.buttons[1][i]["text"]
                 == self.buttons[2][i]["text"]
             ):
-                return True
+                return [(0, i), (1, i), (2, i)]  # Return winning column
         if (
-            self.buttons[0][2]["text"] != " "
-            and self.buttons[0][2]["text"]
-            == self.buttons[1][1]["text"]
-            == self.buttons[2][0]["text"]
-        ):
-            return True
-        elif (
             self.buttons[0][0]["text"] != " "
             and self.buttons[0][0]["text"]
             == self.buttons[1][1]["text"]
             == self.buttons[2][2]["text"]
         ):
-            diagonal = "left_to_right_down"
-            return True, diagonal
+            return [(0, 0), (1, 1), (2, 2)]  # Return diagonal
+        elif (
+            self.buttons[0][2]["text"] != " "
+            and self.buttons[0][2]["text"]
+            == self.buttons[1][1]["text"]
+            == self.buttons[2][0]["text"]
+        ):
+            return [(0, 2), (1, 1), (2, 0)]  # Return diagonal
+        return None
 
     def check_if_tie(self):
         for i in range(3):
