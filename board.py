@@ -1,11 +1,12 @@
-from tkinter import Button, Canvas, messagebox
+from tkinter import Button, Canvas, Label
 from game_logic import GameLogic
 from drawing import Draw
 
 
 class Board:
-    def __init__(self, localization):
+    def __init__(self, localization, menu):
         self.localization = localization
+        self.menu = menu
         self.current_player = "X"
         self.buttons = [[" " for _ in range(3)] for _ in range(3)]
         self.canvases = [[None for _ in range(3)] for _ in range(3)]
@@ -15,7 +16,7 @@ class Board:
                 self.buttons[i][j] = Button(
                     localization,
                     text=" ",
-                    height=10,
+                    height=9,
                     width=20,
                     command=lambda row=i, col=j: self.make_move(row, col),
                     background="black",
@@ -23,11 +24,12 @@ class Board:
                 self.buttons[i][j].grid(row=i, column=j)
 
     def make_move(self, row, col):
+        global restart
         if self.buttons[row][col]["text"] == " ":
             self.canvases[row][col] = Canvas(
                 self.localization,
-                width=145,
-                height=145,
+                width=140,
+                height=140,
                 background="black",
                 highlightthickness=0,
             )
@@ -42,19 +44,16 @@ class Board:
 
             game_logic = GameLogic(self.buttons)
             winning_combination = game_logic.check_if_win()
+
             if winning_combination:
-                self.highlight_winning_combination(winning_combination)
-                messagebox.showinfo("Game Over", f"Player {self.current_player} wins!")
+                drawing.highlight_winning_combination(
+                    winning_combination, self.canvases
+                )
+                self.menu.update_scoreboard(winner=self.current_player)
+                game_logic.handle_restart(
+                    f"Player {self.current_player} wins!", self.canvases
+                )
             elif game_logic.check_if_tie():
-                messagebox.showinfo("Game Over", "Tie!")
+                game_logic.handle_restart("Tie!", self.canvases)
 
             self.current_player = "O" if self.current_player == "X" else "X"
-
-    def highlight_winning_combination(self, combination):
-        if combination:
-            for row, col in combination:
-                self.canvases[row][col].config(bg="red")
-
-
-
-
