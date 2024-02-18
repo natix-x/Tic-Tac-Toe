@@ -14,5 +14,10 @@ class Draw:
         self.canvas.create_oval(20, 20, 120, 120, width=15, outline="white")
         return "0"
 
+    @staticmethod
+    def highlight_winning_combination(combination, canvases):
+        if combination:
+            for row, col in combination:
+                canvases[row][col].config(bg="red")
 
 
