@@ -1,6 +1,7 @@
 from tkinter import Button, Canvas, messagebox
 from game_logic import GameLogic
 from drawing import Draw
+from settings import Settings
 
 
 class Board:
@@ -44,9 +45,9 @@ class Board:
         if self.buttons[row][col]["text"] == " ":
             self.canvases[row][col] = Canvas(
                 self.localization,
-                width=140,
-                height=140,
-                background="black",
+                width=Settings.root_width * 0.25 - 10,
+                height=Settings.root_width * 0.25 - 10,
+                background=Settings.background_color,
                 highlightthickness=0,
             )
             self.canvas = self.canvases[row][col]
