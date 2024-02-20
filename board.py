@@ -101,3 +101,7 @@ class Board:
         )
         if restart:
             self.restart_board(canvases)
+        else:
+            for i in range(3):
+                for j in range(3):
+                    self.buttons[i][j] = self.buttons[i][j].config(state="disabled")
