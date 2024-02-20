@@ -55,7 +55,7 @@ class Board:
             if self.current_player == "X":
                 self.buttons[row][col].config(text=drawing.draw_X())
             else:
-                self.buttons[row][col].config(text=drawing.draw_0())
+                self.buttons[row][col].config(text=drawing.draw_O())
 
             self.canvases[row][col].grid(row=row, column=col)
 
@@ -74,6 +74,7 @@ class Board:
                 self.handle_restart("Tie!", self.canvases)
 
             self.current_player = "O" if self.current_player == "X" else "X"
+            self.menu.whose_turn(self.current_player)
 
     def restart_board(self, canvases):
         """
@@ -86,6 +87,7 @@ class Board:
                 self.buttons[i][j].config(text=" ")
                 if canvases[i][j] is not None:
                     canvases[i][j].destroy()
+
 
     def handle_restart(self, message, canvases):
         """
