@@ -1,4 +1,4 @@
-from tkinter import Button, Canvas, Label
+from tkinter import Button, Canvas, messagebox
 from game_logic import GameLogic
 from drawing import Draw
 
@@ -9,12 +9,19 @@ class Board:
         self.menu = menu
         self.current_player = "X"
         self.buttons = [[" " for _ in range(3)] for _ in range(3)]
+        self.canvas = None
         self.canvases = [[None for _ in range(3)] for _ in range(3)]
+        self.buttons_initiation()
 
+    def buttons_initiation(self):
+        """
+        creates buttons on the board
+        :return: Buttons matrix (3 x 3)
+        """
         for i in range(3):
             for j in range(3):
                 self.buttons[i][j] = Button(
-                    localization,
+                    self.localization,
                     text=" ",
                     height=9,
                     width=20,
@@ -24,7 +31,16 @@ class Board:
                 self.buttons[i][j].grid(row=i, column=j)
 
     def make_move(self, row, col):
-        global restart
+        """
+        draws X or 0 symbol on the board where player clicked;
+        if current player won: highlights winning combination,
+        updates scoreboard and gives players possibility to restart board;
+        elif a tie: gives players possibility to restart board;
+        else: changes current player
+        :param row: row of the button clicked by player
+        :param col: column of the button clicked by player
+        :return: updated board
+        """
         if self.buttons[row][col]["text"] == " ":
             self.canvases[row][col] = Canvas(
                 self.localization,
@@ -50,10 +66,37 @@ class Board:
                     winning_combination, self.canvases
                 )
                 self.menu.update_scoreboard(winner=self.current_player)
-                game_logic.handle_restart(
+                self.handle_restart(
                     f"Player {self.current_player} wins!", self.canvases
                 )
             elif game_logic.check_if_tie():
-                game_logic.handle_restart("Tie!", self.canvases)
+                self.handle_restart("Tie!", self.canvases)
 
             self.current_player = "O" if self.current_player == "X" else "X"
+
+    def restart_board(self, canvases):
+        """
+        restarts board
+        :param canvases: canvases empty or with drawn X or 0 present on the board
+        :return:
+        """
+        for i in range(3):
+            for j in range(3):
+                self.buttons[i][j].config(text=" ")
+                if canvases[i][j] is not None:
+                    canvases[i][j].destroy()
+
+    def handle_restart(self, message, canvases):
+        """
+        displays the message (winning or tie information) and asks if player wants to restart the game (board)
+        :param message: message to display on the messagebox after winning or tie
+        :param canvases: canvases empty or with drawn X or 0 present on the board
+        """
+        restart = messagebox.askyesno(
+            "Game Over",
+            f"{message} Do you want to restart?",
+            icon="question",
+            default="yes",
+        )
+        if restart:
+            self.restart_board(canvases)
