@@ -4,20 +4,34 @@ from tkinter import Canvas
 class Draw:
     def __init__(self, canvas):
         self.canvas = canvas
+        self.line_color = "white"
+        self.line_width = 15
 
     def draw_X(self):
-        self.canvas.create_line(20, 20, 120, 120, width=15, fill="white")
-        self.canvas.create_line(20, 120, 120, 20, width=15, fill="white")
+        """
+        draws X symbol
+        :return: "X" string
+        """
+        self.canvas.create_line(20, 20, 120, 120, width=self.line_width, fill=self.line_color)
+        self.canvas.create_line(20, 120, 120, 20, width=self.line_width, fill=self.line_color)
         return "X"
 
     def draw_0(self):
-        self.canvas.create_oval(20, 20, 120, 120, width=15, outline="white")
+        """
+        draws 0 symbol
+        :return: "0" string
+        """
+        self.canvas.create_oval(20, 20, 120, 120, width=self.line_width, outline=self.line_color)
         return "0"
 
     @staticmethod
     def highlight_winning_combination(combination, canvases):
+        """
+        highlights combination in red
+        :param combination: winning combination
+        :param canvases: canvases with drawn X or 0
+        :return: highlighted winning combination
+        """
         if combination:
             for row, col in combination:
                 canvases[row][col].config(bg="red")
-
-
