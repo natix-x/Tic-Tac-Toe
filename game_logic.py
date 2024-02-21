@@ -17,33 +17,42 @@ class GameLogic:
         for i in range(3):
             for j in range(3):
                 if (
-                        self.buttons[i][j]["text"] != " "
-                        and self.buttons[i][j]["text"]
-                        == self.buttons[i][(j + 1) % 3]["text"]
-                        == self.buttons[i][(j + 2) % 3]["text"]
+                    self.buttons[i][j]["text"] != " "
+                    and self.buttons[i][j]["text"]
+                    == self.buttons[i][(j + 1) % 3]["text"]
+                    == self.buttons[i][(j + 2) % 3]["text"]
                 ):
                     return [(i, 0), (i, 1), (i, 2)]  # return winning row
                 elif (
-                        self.buttons[i][j]["text"] != " "
-                        and self.buttons[i][j]["text"]
-                        == self.buttons[(i + 1) % 3][j]["text"]
-                        == self.buttons[(i + 2) % 3][j]["text"]
+                    self.buttons[i][j]["text"] != " "
+                    and self.buttons[i][j]["text"]
+                    == self.buttons[(i + 1) % 3][j]["text"]
+                    == self.buttons[(i + 2) % 3][j]["text"]
                 ):
                     return [(0, j), (1, j), (2, j)]  # return winning column
-                elif (
-                        self.buttons[i][j]["text"] != " "
-                        and self.buttons[i][j]["text"]
-                        == self.buttons[(i + 1) % 3][(j + 1) % 3]["text"]
-                        == self.buttons[(i + 2) % 3][(j + 2) % 3]["text"]
-                ):
-                    return [(i, j), (i + 1, j + 1), (i + 2, j + 2)]  # return first winning diagonal
             if (
-                    self.buttons[i][(2 - i)]["text"] != " "
-                    and self.buttons[i][(2 - i)]["text"]
-                    == self.buttons[(i + 1) % 3][2 - (i + 1) % 3]["text"]
-                    == self.buttons[(i + 2) % 3][2 - (i + 2) % 3]["text"]
+                self.buttons[i][(2 - i)]["text"] != " "
+                and self.buttons[i][(2 - i)]["text"]
+                == self.buttons[(i + 1) % 3][2 - (i + 1) % 3]["text"]
+                == self.buttons[(i + 2) % 3][2 - (i + 2) % 3]["text"]
             ):
-                return [(0, 2), (1, 1), (2, 0)]  # return second winning diagonal
+                return [
+                    (i, 2 - i),
+                    (i + 1, 2 - (i + 1)),
+                    (i + 2, 2 - (i + 2)),
+                ]  # return first winning diagonal
+            elif (
+                self.buttons[i][i]["text"] != " "
+                and self.buttons[i][i]["text"]
+                == self.buttons[(i + 1) % 3][(i + 1) % 3]["text"]
+                == self.buttons[(i + 2) % 3][(i + 2) % 3]["text"]
+            ):
+                return [
+                    (i, i),
+                    (i + 1, i + 1),
+                    (i + 2, i + 2),
+                ]  # return second winning diagonal
+
         return None
 
     def check_if_tie(self):
