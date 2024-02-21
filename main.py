@@ -1,7 +1,9 @@
-from tkinter import *
+from tkinter import Tk, Frame
 from board import Board
 from menu import Menu
 from settings import Settings
+from title import Title
+from start import Start
 
 
 def tic_tac_toe():
@@ -18,7 +20,7 @@ def tic_tac_toe():
         width=Settings.root_width * 0.75,
         height=Settings.root_height * 0.2,
     )
-    title_frame.place(x=0, y=0)
+    title_frame.pack(fill="x")
 
     right_frame = Frame(
         root,
@@ -26,19 +28,17 @@ def tic_tac_toe():
         width=Settings.root_width * 0.25,
         height=Settings.root_height,
     )
-    right_frame.place(x=Settings.root_width * 0.75, y=Settings.root_height * 0.2)
-
+    right_frame.pack(side="right", fill="y")
     board_frame = Frame(
         root,
         bg=Settings.background_color,
         width=Settings.root_width * 0.75,
         height=Settings.root_height * 0.8,
     )
-    board_frame.place(x=0, y=Settings.root_height * 0.2)
+    board_frame.pack(side="left", fill="both")
 
-    right_menu = Menu(right_frame)
-    board = Board(board_frame, right_menu)
-    right_menu.restart_button(board)
+    Title(title_frame)
+    start = Start(right_frame, board_frame)
 
     root.mainloop()
 
