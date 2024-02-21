@@ -27,7 +27,7 @@ class Board:
                     height=9,
                     width=20,
                     command=lambda row=i, col=j: self.make_move(row, col),
-                    background="black",
+                    background=Settings.background_color,
                 )
                 self.buttons[i][j].grid(row=i, column=j)
 
@@ -76,11 +76,11 @@ class Board:
             self.current_player = "O" if self.current_player == "X" else "X"
             self.menu.whose_turn(self.current_player)
 
-    def restart_board(self, canvases):
+    def restart_board(self, canvases=None):
         """
         restarts board
         :param canvases: canvases empty or with drawn X or 0 present on the board
-        :return:
+        :return: restarted board
         """
         for i in range(3):
             for j in range(3):
@@ -88,10 +88,10 @@ class Board:
                 if canvases[i][j] is not None:
                     canvases[i][j].destroy()
 
-
     def handle_restart(self, message, canvases):
         """
-        displays the message (winning or tie information) and asks if player wants to restart the game (board)
+        displays the message and asks if player wants to restart the game (board)
+        blocks the buttons on the board if on the board winning combination is still present
         :param message: message to display on the messagebox after winning or tie
         :param canvases: canvases empty or with drawn X or 0 present on the board
         """
@@ -103,7 +103,13 @@ class Board:
         )
         if restart:
             self.restart_board(canvases)
+
+        for i in range(3):
+            for j in range(3):
+                self.buttons[i][j].config(state="normal")
         else:
-            for i in range(3):
-                for j in range(3):
-                    self.buttons[i][j] = self.buttons[i][j].config(state="disabled")
+            if message != "":
+                for i in range(3):
+                    for j in range(3):
+                        self.buttons[i][j].config(state="disabled")
+

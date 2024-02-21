@@ -38,6 +38,7 @@ def tic_tac_toe():
 
     right_menu = Menu(right_frame)
     board = Board(board_frame, right_menu)
+    right_menu.restart_button(board)
 
     root.mainloop()
 
