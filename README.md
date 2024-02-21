@@ -25,3 +25,4 @@ Game functionalities:
 * creating a board 
 * presenting whose turn is now
 * adding points to scoreboard after each round
+* possibility of restart board at any time from right menu
