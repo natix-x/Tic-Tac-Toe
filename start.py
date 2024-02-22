@@ -3,12 +3,14 @@ from settings import Settings
 import random
 from menu import Menu
 from board import Board
+from title import Title
 
 
 class Start:
-    def __init__(self, menu_frame, board_frame):
+    def __init__(self, menu_frame, board_frame, title_frame):
         self.board_frame = board_frame
         self.menu_frame = menu_frame
+        self.title_frame = title_frame
         self.label_font = ("Arial", 13)
 
         self.name_players_label = Label(
@@ -45,6 +47,7 @@ class Start:
         self.starting_screen()
         self.player_X_name = None
         self.player_O_name = None
+        self.chosen_player = None
 
     def starting_screen(self):
         """
@@ -70,6 +73,7 @@ class Start:
         :return: board and right menu
         # TODO player's nickname has to have less than x characters (x I will figure out later)
         # TODO do sth about spaces (change to one or 0 ? in the middle???)
+        # TODO create new function
         """
         self.player_X_name = self.player_X_entry.get().strip()
         self.player_O_name = self.player_O_entry.get().strip()
@@ -87,7 +91,7 @@ class Start:
         draws which player will start the game
         :return: drawn player's nickname
         """
-        chosen_player = random.choice([self.player_X_name, self.player_O_name])
+        self.chosen_player = random.choice([self.player_X_name, self.player_O_name])
         drawing_label = Label(
             self.board_frame,
             text=f"First player:",
@@ -99,7 +103,7 @@ class Start:
 
         drawing_label = Label(
             self.board_frame,
-            text=chosen_player,
+            text=self.chosen_player,
             fg=Settings.text_color,
             background=Settings.background_color,
             font=("Arial", 35),
@@ -109,12 +113,17 @@ class Start:
 
     def initialize_board_and_menu(self):
         """
-        displays game board and menu
-        :return: board and menu
+        displays game board, menu and board with players' nicknames assigned to O and X symbols
+        :return: game board, menu and updated title frame
         """
-        right_menu = Menu(self.menu_frame)
+        right_menu = Menu(self.menu_frame, self.define_first_player())
         board = Board(self.board_frame, right_menu)
         right_menu.restart_button(board)
+        Title(
+            self.title_frame,
+            player_X_name=self.player_X_name,
+            player_O_name=self.player_O_name,
+        ).player_board_update()
 
     @staticmethod
     def destroy_widget(frame):
@@ -132,3 +141,13 @@ class Start:
         :return: messagebox
         """
         messagebox.showinfo("Error", message=message)
+
+    def define_first_player(self):
+        """
+        assigns chosen player's nickname to "X" or "O" symbol to define which sign will first be placed
+        :return: str: "X" or "O"
+        """
+        if self.chosen_player == self.player_X_name:
+            return "X"
+        else:
+            return "O"
