@@ -5,7 +5,6 @@
 * [Requirements](#requirements)
 * [Setup](#setup)
 * [Status](#setup)
-* 
 ### General info
 The aim of this project is to create simple Player vs Player (PvP) Game: Tic Tac Toe fully written in python.
 It focuses on developing skills connected with OOP.
@@ -25,4 +24,8 @@ Game functionalities:
 * creating a board 
 * presenting whose turn is now
 * adding points to scoreboard after each round
-* possibility of restart board at any time from right menu
+* possibility of restarting board at any time from right menu
+* possibility for players for choosing their nicknames and signs (X or 0) at the begging of the game
+* drawing first player
+* displaying players' nicknames during whole game
+
