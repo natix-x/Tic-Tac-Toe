@@ -1,18 +1,18 @@
 # Tic-Tac-Toe
  <div style="display:flex; justify-content:center;">
   <div style="flex:50%; padding:5px;">
-    <img src="screenshots/image_1.png" alt="My Image" width="400"/>
+    <img src="screenshots/image_1.png" alt="My Image" width="300"/>
   </div>
   <div style="flex:50%; padding:5px;">
-    <img src="screenshots/image_2.png" alt="My Image" width="400"/>
+    <img src="screenshots/image_2.png" alt="My Image" width="300"/>
   </div>
 </div>
 <div style="display:flex; justify-content:center;">
   <div style="flex:50%; padding:5px;">
-    <img src="screenshots/image_3.png" alt="My Image" width="400"/>
+    <img src="screenshots/image_3.png" alt="My Image" width="300"/>
   </div>
   <div style="flex:50%; padding:5px;">
-    <img src="screenshots/image_4.png" alt="My Image" width="400"/>
+    <img src="screenshots/image_4.png" alt="My Image" width="300"/>
   </div>
 </div>
 
