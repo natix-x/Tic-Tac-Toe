@@ -1,6 +1,20 @@
 # Tic-Tac-Toe
- ![My Image](screenshots/image_1.png) ![My Image](screenshots/image_2.png)
- ![My Image](screenshots/image_3.png) ![My Image](screenshots/image_4.png)
+ <div style="display:flex; justify-content:center;">
+  <div style="flex:50%; padding:5px;">
+    <img src="screenshots/image_1.png" alt="My Image" width="400"/>
+  </div>
+  <div style="flex:50%; padding:5px;">
+    <img src="screenshots/image_2.png" alt="My Image" width="400"/>
+  </div>
+</div>
+<div style="display:flex; justify-content:center;">
+  <div style="flex:50%; padding:5px;">
+    <img src="screenshots/image_3.png" alt="My Image" width="400"/>
+  </div>
+  <div style="flex:50%; padding:5px;">
+    <img src="screenshots/image_4.png" alt="My Image" width="400"/>
+  </div>
+</div>
 
 ## Table of contents: 
 * [General info](#general-info)
