@@ -22,9 +22,11 @@ class Menu:
             self.localization, background=Settings.background_color, width=5, height=4
         )
         self.turn_board.place(x=30, y=0)
+        self.winner_of_the_whole_game = None
+        self.end_process = None
         self.update_scoreboard()
         self.whose_turn(self.current_player)
-        self.end_button()
+        self.exit_button()
 
     def update_scoreboard(self, winner=None):
         """
@@ -42,6 +44,7 @@ class Menu:
             font=self.font,
             fg=Settings.text_color,
         )
+        self.who_is_the_winner()
 
     def whose_turn(self, current_player):
         """
@@ -84,15 +87,23 @@ class Menu:
         """
         creates button through which players can exit the game
         """
-        end_process = End(self.start_instance)
         end_button = Button(
             self.localization,
             text="Exit",
             height=3,
             width=10,
-            command=lambda: end_process.end_game(),
+            command=lambda: self.end_process.end_game(),
             background=Settings.background_color,
             fg=Settings.text_color,
             font=self.font,
         )
         end_button.place(x=30, y=350)
+
+    def who_is_the_winner(self):
+        if self.player_X_score != self.player_O_score:
+            if self.player_X_score > self.player_O_score:
+                self.winner_of_the_whole_game = self.start_instance.player_X_name
+            else:
+                self.winner_of_the_whole_game = self.start_instance.player_O_name
+
+        self.end_process = End(self.start_instance, winner=self.winner_of_the_whole_game)

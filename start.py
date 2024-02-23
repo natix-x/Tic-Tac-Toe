@@ -1,4 +1,4 @@
-from tkinter import Label, Entry, Button, messagebox
+from tkinter import Label, Entry, Button
 from settings import Settings
 import random
 from menu import Menu
@@ -72,7 +72,6 @@ class Start:
         destroys starting screen, displays drawn player and initialize board and menu.
         If wrong nicknames inserted displays error message.
         :return: board and right menu
-        # TODO do sth about spaces (change to one or 0 ? in the middle???)
         """
         self.player_X_name = self.player_X_entry.get().strip()
         self.player_X_name = re.sub("\s\s+", " ", self.player_X_name)
@@ -119,7 +118,7 @@ class Start:
         :return: game board, menu and updated title frame
         """
         right_menu = Menu(
-            self.menu_frame, self.define_first_player(), start_instance=self
+            self.menu_frame, first_player=self.define_first_player(), start_instance=self
         )
         board = Board(self.board_frame, right_menu)
         right_menu.restart_button(board)
