@@ -8,7 +8,8 @@ class End:
 
     def end_game(self):
         """
-        asks if players really want to end current game. If yes displays winning message, asks if they want to start again and then restarts whole
+        asks if players really want to end current game. If yes displays winning message,
+        asks if they want to start again and then restarts whole
         game. If no: closes game window
         """
         end = messagebox.askyesno(

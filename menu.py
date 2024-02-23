@@ -100,6 +100,10 @@ class Menu:
         end_button.place(x=30, y=350)
 
     def who_is_the_winner(self):
+        """
+        displays who the winner of the whole game is
+        :return: winner's nickname or None
+        """
         if self.player_X_score != self.player_O_score:
             if self.player_X_score > self.player_O_score:
                 self.winner_of_the_whole_game = self.start_instance.player_X_name
