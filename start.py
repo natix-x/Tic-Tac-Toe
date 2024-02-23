@@ -118,7 +118,9 @@ class Start:
         :return: game board, menu and updated title frame
         """
         right_menu = Menu(
-            self.menu_frame, first_player=self.define_first_player(), start_instance=self
+            self.menu_frame,
+            first_player=self.define_first_player(),
+            start_instance=self,
         )
         board = Board(self.board_frame, right_menu)
         right_menu.restart_button(board)

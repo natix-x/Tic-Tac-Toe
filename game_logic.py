@@ -1,6 +1,3 @@
-from tkinter import messagebox
-
-
 class GameLogic:
     def __init__(self, buttons):
         self.buttons = buttons

@@ -106,4 +106,6 @@ class Menu:
             else:
                 self.winner_of_the_whole_game = self.start_instance.player_O_name
 
-        self.end_process = End(self.start_instance, winner=self.winner_of_the_whole_game)
+        self.end_process = End(
+            self.start_instance, winner=self.winner_of_the_whole_game
+        )

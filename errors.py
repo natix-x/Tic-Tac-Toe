@@ -35,4 +35,3 @@ class Errors:
         :return: messagebox
         """
         messagebox.showinfo("Error", message=message)
-

@@ -2,7 +2,6 @@ from tkinter import Tk, Frame
 from settings import Settings
 from title import Title
 from start import Start
-from end import End
 
 
 def tic_tac_toe():
@@ -36,6 +35,10 @@ def tic_tac_toe():
     board_frame.pack(side="left", fill="both")
 
     def restart_game():
+        """
+        destroys current window and creates a new one
+        :return: new window
+        """
         root.destroy()
         tic_tac_toe()
 

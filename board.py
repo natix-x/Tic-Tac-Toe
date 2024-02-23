@@ -8,7 +8,7 @@ class Board:
     def __init__(self, localization, menu):
         self.localization = localization
         self.menu = menu
-        self.current_player = "X"
+        self.current_player = self.menu.current_player
         self.buttons = [[" " for _ in range(3)] for _ in range(3)]
         self.canvas = None
         self.canvases = [[None for _ in range(3)] for _ in range(3)]
@@ -90,7 +90,7 @@ class Board:
 
     def handle_restart(self, message, canvases):
         """
-        displays the message and asks if player wants to restart the game (board)
+        displays the message and asks if player wants to restart the game board;
         blocks the buttons on the board if on the board winning combination is still present
         :param message: message to display on the messagebox after winning or tie
         :param canvases: canvases empty or with drawn X or 0 present on the board
@@ -104,12 +104,13 @@ class Board:
         if restart:
             self.restart_board(canvases)
 
-        for i in range(3):
-            for j in range(3):
-                self.buttons[i][j].config(state="normal")
+            for i in range(3):
+                for j in range(3):
+                    self.buttons[i][j].config(state="normal")  # buttons are clickable
         else:
             if message != "":
                 for i in range(3):
                     for j in range(3):
-                        self.buttons[i][j].config(state="disabled")
-
+                        self.buttons[i][j].config(
+                            state="disabled"
+                        )  # buttons are blocked

@@ -12,17 +12,23 @@ class Draw:
         draws X symbol
         :return: "X" string
         """
-        self.canvas.create_line(20, 20, 120, 120, width=self.line_width, fill=self.line_color)
-        self.canvas.create_line(20, 120, 120, 20, width=self.line_width, fill=self.line_color)
+        self.canvas.create_line(
+            20, 20, 120, 120, width=self.line_width, fill=self.line_color
+        )
+        self.canvas.create_line(
+            20, 120, 120, 20, width=self.line_width, fill=self.line_color
+        )
         return "X"
 
-    def draw_0(self):
+    def draw_O(self):
         """
-        draws 0 symbol
+        draws O symbol
         :return: "0" string
         """
-        self.canvas.create_oval(20, 20, 120, 120, width=self.line_width, outline=self.line_color)
-        return "0"
+        self.canvas.create_oval(
+            20, 20, 120, 120, width=self.line_width, outline=self.line_color
+        )
+        return "O"
 
     @staticmethod
     def highlight_winning_combination(combination, canvases):

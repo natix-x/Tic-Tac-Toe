@@ -27,7 +27,7 @@ class Title:
         self.player_board = Label(
             self.localization, background=Settings.background_color
         )
-        self.player_board.place(relx=0.9, rely=0.4, anchor="center")
+        self.player_board.place(relx=0.85, rely=0.4, anchor="center")
 
         text = f"X: {self.player_X_name}\nO: {self.player_O_name}"
         self.player_board.config(text=text, fg=Settings.text_color, font=("Arial", 15))
