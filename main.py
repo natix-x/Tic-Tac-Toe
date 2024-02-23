@@ -1,14 +1,12 @@
 from tkinter import Tk, Frame
-from board import Board
-from menu import Menu
 from settings import Settings
 from title import Title
 from start import Start
+from end import End
 
 
 def tic_tac_toe():
     root = Tk()
-
     root.configure(bg=Settings.background_color)
     root.geometry(f"{Settings.root_width}x{Settings.root_height}")
     root.title("Tic Tac Toe")
@@ -37,8 +35,12 @@ def tic_tac_toe():
     )
     board_frame.pack(side="left", fill="both")
 
+    def restart_game():
+        root.destroy()
+        tic_tac_toe()
+
     Title(title_frame)
-    start = Start(right_frame, board_frame)
+    start = Start(right_frame, board_frame, title_frame, root, restart_game)
 
     root.mainloop()
 
