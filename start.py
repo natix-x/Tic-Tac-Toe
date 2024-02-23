@@ -9,10 +9,12 @@ import re
 
 
 class Start:
-    def __init__(self, menu_frame, board_frame, title_frame):
+    def __init__(self, menu_frame, board_frame, title_frame, root, restart_game):
         self.board_frame = board_frame
         self.menu_frame = menu_frame
         self.title_frame = title_frame
+        self.root = root
+        self.restart_game = restart_game
         self.label_font = ("Arial", 13)
 
         self.name_players_label = Label(
@@ -116,7 +118,9 @@ class Start:
         displays game board, menu and board with players' nicknames assigned to O and X symbols
         :return: game board, menu and updated title frame
         """
-        right_menu = Menu(self.menu_frame, self.define_first_player(), self)
+        right_menu = Menu(
+            self.menu_frame, self.define_first_player(), start_instance=self
+        )
         board = Board(self.board_frame, right_menu)
         right_menu.restart_button(board)
         Title(

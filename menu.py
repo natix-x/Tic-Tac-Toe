@@ -1,11 +1,14 @@
 from tkinter import Label, Button
 from settings import Settings
+from end import End
 
 
 class Menu:
-    def __init__(self, localization):
+    def __init__(self, localization, first_player=None, start_instance=None):
         self.localization = localization
-        self.text_color = "white"
+        self.current_player = first_player
+        self.start_instance = start_instance
+        self.font = ("Arial", 13)
         self.scoreboard = Label(
             self.localization, background=Settings.background_color, width=10, height=8
         )
@@ -13,17 +16,14 @@ class Menu:
         self.player_X_score = 0
         self.player_O_score = 0
         self.turn_board_title = Label(
-            self.localization,
-            background=Settings.background_color,
-            width=5,
-            height=4)
+            self.localization, background=Settings.background_color, width=5, height=4
+        )
         self.turn_board = Label(
             self.localization, background=Settings.background_color, width=5, height=4
         )
         self.turn_board.place(x=30, y=0)
-        self.current_player = "X"
         self.update_scoreboard()
-        self.whose_turn()
+        self.whose_turn(self.current_player)
         self.end_button()
 
     def update_scoreboard(self, winner=None):
@@ -39,11 +39,11 @@ class Menu:
 
         self.scoreboard.config(
             text=f"Scoreboard:\nPlayer X: {self.player_X_score}\nPlayer O: {self.player_O_score}",
-            font=("Arial", 13),
-            fg=self.text_color,
+            font=self.font,
+            fg=Settings.text_color,
         )
 
-    def whose_turn(self, current_player=None):
+    def whose_turn(self, current_player):
         """
         displays whose turn is now
         :param current_player: player whose turn is now
@@ -57,7 +57,7 @@ class Menu:
         self.turn_board.config(
             text=f"Turn:\n\n{self.current_player}",
             font=("Arial", 20),
-            fg=self.text_color,
+            fg=Settings.text_color,
         )
 
     def restart_button(self, board_instance):
@@ -74,25 +74,25 @@ class Menu:
             height=3,
             width=10,
             background=Settings.background_color,
-            fg=self.text_color,
-            font=("Arial", 13),
-            command=lambda: board_instance.handle_restart("", board_instance.canvases)
+            fg=Settings.text_color,
+            font=self.font,
+            command=lambda: board_instance.handle_restart("", board_instance.canvases),
         )
         restart_button.place(x=30, y=270)
 
-    def end_button(self):
+    def exit_button(self):
+        """
+        creates button through which players can exit the game
+        """
+        end_process = End(self.start_instance)
         end_button = Button(
             self.localization,
-            text="New game",
+            text="Exit",
             height=3,
             width=10,
-            command = self.end_game(),
+            command=lambda: end_process.end_game(),
             background=Settings.background_color,
-            fg = self.text_color,
-            font = ("Arial", 13)
+            fg=Settings.text_color,
+            font=self.font,
         )
         end_button.place(x=30, y=350)
-
-    def end_game(self):
-        pass
-
