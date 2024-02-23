@@ -4,6 +4,8 @@ import random
 from menu import Menu
 from board import Board
 from title import Title
+from errors import Errors
+import re
 
 
 class Start:
@@ -67,24 +69,22 @@ class Start:
         """
         destroys starting screen, displays drawn player and initialize board and menu.
         If wrong nicknames inserted displays error message.
-        Wrong nicknames mean:
-        1. No nicknames
-        2. The same nicknames for both players
         :return: board and right menu
-        # TODO player's nickname has to have less than x characters (x I will figure out later)
         # TODO do sth about spaces (change to one or 0 ? in the middle???)
-        # TODO create new function
         """
         self.player_X_name = self.player_X_entry.get().strip()
+        self.player_X_name = re.sub("\s\s+", " ", self.player_X_name)
         self.player_O_name = self.player_O_entry.get().strip()
-        if self.player_X_name == "" or self.player_O_name == "":
-            self.show_error_message("Insert players' nicknames")
-        elif self.player_X_name == self.player_O_name:
-            self.show_error_message("Players' nicknames cannot be the same")
-        else:
+        self.player_O_name = re.sub("\s\s+", " ", self.player_O_name)
+
+        errors_check = Errors(self.player_X_name, self.player_O_name)
+
+        if errors_check.error_occurrence() is False:
             self.destroy_widget(self.board_frame)
             self.drawing_first_player()
             self.board_frame.after(2000, self.initialize_board_and_menu)
+        else:
+            self.starting_screen()
 
     def drawing_first_player(self):
         """
@@ -116,7 +116,7 @@ class Start:
         displays game board, menu and board with players' nicknames assigned to O and X symbols
         :return: game board, menu and updated title frame
         """
-        right_menu = Menu(self.menu_frame, self.define_first_player())
+        right_menu = Menu(self.menu_frame, self.define_first_player(), self)
         board = Board(self.board_frame, right_menu)
         right_menu.restart_button(board)
         Title(
@@ -132,15 +132,6 @@ class Start:
         """
         for widget in frame.winfo_children():
             widget.destroy()
-
-    @staticmethod
-    def show_error_message(message):
-        """
-        displays error messagebox
-        :param message: message to be displayed
-        :return: messagebox
-        """
-        messagebox.showinfo("Error", message=message)
 
     def define_first_player(self):
         """
