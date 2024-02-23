@@ -1,5 +1,7 @@
 # Tic-Tac-Toe
- 
+ ![My Image](screenshots/image_1.png) ![My Image](screenshots/image_2.png)
+ ![My Image](screenshots/image_3.png) ![My Image](screenshots/image_4.png)
+
 ## Table of contents: 
 * [General info](#general-info)
 * [Requirements](#requirements-and-used-libraries)
