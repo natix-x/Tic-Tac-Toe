@@ -1,7 +1,7 @@
 from tkinter import Tk, Frame
-from settings import Settings
-from title import Title
-from start import Start
+from game.settings import Settings
+from game.title import Title
+from game.start import Start
 
 
 def tic_tac_toe():
