@@ -1,5 +1,5 @@
 import pytest
-from game.game_logic import GameLogic
+from game.frames.modules.game_logic import GameLogic
 
 
 class TestGameLogic:

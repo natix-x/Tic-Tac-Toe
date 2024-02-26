@@ -4,7 +4,7 @@ import random
 from frames.menu import Menu
 from frames.board import Board
 from frames.title import Title
-from frames.modules.nicknames_errors_handler import NicknamesErrorHandler
+from frames.modules.nicknames_errors_handler import NicknamesErrorsHandler
 import re
 
 
@@ -93,7 +93,7 @@ class GameInit:
         self.player_O_name = re.sub("\s\s+", " ", self.player_O_name)
         # change many inserted by player spaces to one space
 
-        errors_check = NicknamesErrorHandler(self.player_X_name, self.player_O_name)
+        errors_check = NicknamesErrorsHandler(self.player_X_name, self.player_O_name)
 
         if errors_check.error_occurrence() is False:
             self.destroy_widget(self.window_instance.board_frame)

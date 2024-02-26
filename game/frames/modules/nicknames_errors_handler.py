@@ -1,7 +1,7 @@
 from tkinter import messagebox
 
 
-class NicknamesErrorHandler:
+class NicknamesErrorsHandler:
     """
     handler for nicknames errors (players' mistakes)
     """
@@ -28,9 +28,6 @@ class NicknamesErrorHandler:
         else: returns False
         """
         players = [self.player_X_name, self.player_O_name]
-        if players[0] == players[1]:
-            self.show_error_message("Players' nicknames cannot be the same")
-            return True
         for player in players:
             if player == "":
                 self.show_error_message("Insert all players' nicknames")
@@ -38,4 +35,7 @@ class NicknamesErrorHandler:
             elif len(player) > 10:
                 self.show_error_message("Nicknames should have less than 11 characters")
                 return True
+        if players[0] == players[1]:
+            self.show_error_message("Players' nicknames cannot be the same")
+            return True
         return False
