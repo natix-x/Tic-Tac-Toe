@@ -1,4 +1,8 @@
 class GameLogic:
+    """
+    defines winning and tie cases and checks if any of them are present on the game board
+    """
+
     def __init__(self, buttons):
         self.buttons = buttons
 
@@ -28,27 +32,19 @@ class GameLogic:
                 ):
                     return [(0, j), (1, j), (2, j)]  # return winning column
             if (
-                self.buttons[i][(2 - i)]["text"] != " "
-                and self.buttons[i][(2 - i)]["text"]
-                == self.buttons[(i + 1) % 3][2 - (i + 1) % 3]["text"]
-                == self.buttons[(i + 2) % 3][2 - (i + 2) % 3]["text"]
+                self.buttons[0][0]["text"] != " "
+                and self.buttons[0][0]["text"]
+                == self.buttons[1][1]["text"]
+                == self.buttons[2][2]["text"]
             ):
-                return [
-                    (i, 2 - i),
-                    (i + 1, 2 - (i + 1)),
-                    (i + 2, 2 - (i + 2)),
-                ]  # return first winning diagonal
+                return [(0, 0), (1, 1), (2, 2)]  # return first diagonal
             elif (
-                self.buttons[i][i]["text"] != " "
-                and self.buttons[i][i]["text"]
-                == self.buttons[(i + 1) % 3][(i + 1) % 3]["text"]
-                == self.buttons[(i + 2) % 3][(i + 2) % 3]["text"]
+                self.buttons[0][2]["text"] != " "
+                and self.buttons[0][2]["text"]
+                == self.buttons[1][1]["text"]
+                == self.buttons[2][0]["text"]
             ):
-                return [
-                    (i, i),
-                    (i + 1, i + 1),
-                    (i + 2, i + 2),
-                ]  # return second winning diagonal
+                return [(0, 2), (1, 1), (2, 0)]  # return second diagonal
 
         return None
 
@@ -56,6 +52,7 @@ class GameLogic:
         """
         checks if tie
         "tie" means no same three symbols in one row/column/diagonal
+        :return: True if a tie, else: False
         """
         for i in range(3):
             for j in range(3):
