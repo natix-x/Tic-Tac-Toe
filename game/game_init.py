@@ -1,10 +1,10 @@
 from tkinter import Label, Entry, Button
-from settings import Settings
+from frames.modules.settings import Settings
 import random
-from menu import Menu
-from board import Board
-from title import Title
-from nicknames_errors_handler import NicknamesErrorHandler
+from frames.menu import Menu
+from frames.board import Board
+from frames.title import Title
+from frames.modules.nicknames_errors_handler import NicknamesErrorHandler
 import re
 
 
@@ -145,7 +145,7 @@ class GameInit:
             self.window_instance.title_frame,
             player_X_name=self.player_X_name,
             player_O_name=self.player_O_name,
-        ).player_board_update()
+        ).players_board_update()
 
     def define_first_player(self):
         """

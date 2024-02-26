@@ -1,7 +1,7 @@
 from tkinter import Button, Canvas, messagebox
-from game_logic import GameLogic
-from drawing import Draw
-from settings import Settings
+from .modules.game_logic import GameLogic
+from .modules.drawing import Draw
+from .modules.settings import Settings
 
 
 class Board:
@@ -16,6 +16,7 @@ class Board:
         self.buttons = [[" " for _ in range(3)] for _ in range(3)]
         self.canvas = None
         self.canvases = [[None for _ in range(3)] for _ in range(3)]
+        self.background_color = "black"
         self.buttons_init()
 
     def buttons_init(self):
@@ -31,7 +32,7 @@ class Board:
                     height=9,
                     width=20,
                     command=lambda row=i, col=j: self.make_move(row, col),
-                    background=Settings.background_color,
+                    background=self.background_color,
                 )
                 self.buttons[i][j].grid(row=i, column=j)
 

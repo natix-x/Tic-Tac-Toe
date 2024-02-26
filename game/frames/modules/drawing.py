@@ -1,11 +1,24 @@
-from tkinter import Canvas
-
-
 class Draw:
+    """
+    draws symbols on the board and highlights combinations
+    """
+
     def __init__(self, canvas):
         self.canvas = canvas
         self.line_color = "white"
         self.line_width = 15
+
+    @staticmethod
+    def highlight_winning_combination(combination, canvases):
+        """
+        highlights combination in red
+        :param combination: winning combination
+        :param canvases: canvases with drawn X or 0
+        :return: highlighted winning combination
+        """
+        if combination:
+            for row, col in combination:
+                canvases[row][col].config(bg="red")
 
     def draw_X(self):
         """
@@ -29,15 +42,3 @@ class Draw:
             20, 20, 120, 120, width=self.line_width, outline=self.line_color
         )
         return "O"
-
-    @staticmethod
-    def highlight_winning_combination(combination, canvases):
-        """
-        highlights combination in red
-        :param combination: winning combination
-        :param canvases: canvases with drawn X or 0
-        :return: highlighted winning combination
-        """
-        if combination:
-            for row, col in combination:
-                canvases[row][col].config(bg="red")

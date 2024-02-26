@@ -1,6 +1,6 @@
 from tkinter import Label, Button
-from settings import Settings
-from end_game_handler import EndGameHandler
+from .modules.end_game_handler import EndGameHandler
+from .modules.settings import Settings
 
 
 class Menu:

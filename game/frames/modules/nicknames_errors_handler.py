@@ -1,10 +1,23 @@
 from tkinter import messagebox
 
 
-class Errors:
+class NicknamesErrorHandler:
+    """
+    handler for nicknames errors (players' mistakes)
+    """
+
     def __init__(self, player_X_name, player_O_name):
         self.player_X_name = player_X_name
         self.player_O_name = player_O_name
+
+    @staticmethod
+    def show_error_message(message):
+        """
+        displays error messagebox
+        :param message: message to be displayed
+        :return: messagebox
+        """
+        messagebox.showinfo("Error", message=message)
 
     def error_occurrence(self):
         """
@@ -23,15 +36,6 @@ class Errors:
                 self.show_error_message("Insert all players' nicknames")
                 return True
             elif len(player) > 10:
-                self.show_error_message("Nicknames should have less than 10 characters")
+                self.show_error_message("Nicknames should have less than 11 characters")
                 return True
         return False
-
-    @staticmethod
-    def show_error_message(message):
-        """
-        displays error messagebox
-        :param message: message to be displayed
-        :return: messagebox
-        """
-        messagebox.showinfo("Error", message=message)

@@ -1,4 +1,4 @@
-from settings import Settings
+from frames.modules.settings import Settings
 from tkinter import Tk, Frame
 from game_init import GameInit
 

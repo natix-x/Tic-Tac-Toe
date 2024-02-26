@@ -1,8 +1,12 @@
 from tkinter import Label
-from settings import Settings
+from .modules.settings import Settings
 
 
 class Title:
+    """
+    creates label with game title and board with players' nicknames and symbols chosen by them
+    """
+
     def __init__(
         self, localization, player_X_name=None, player_O_name=None, chosen_player=None
     ):
@@ -18,16 +22,17 @@ class Title:
             font=("Arial", 45),
         )
         self.title_board.place(relx=0.4, rely=0.5, anchor="center")
-        self.player_board = None
+        self.players_board = None
 
-    def player_board_update(self):
+    def players_board_update(self):
         """
         assigns X and O symbols to players' nicknames
+        :return: players board
         """
-        self.player_board = Label(
+        self.players_board = Label(
             self.localization, background=Settings.background_color
         )
-        self.player_board.place(relx=0.85, rely=0.4, anchor="center")
+        self.players_board.place(relx=0.85, rely=0.4, anchor="center")
 
         text = f"X: {self.player_X_name}\nO: {self.player_O_name}"
-        self.player_board.config(text=text, fg=Settings.text_color, font=("Arial", 15))
+        self.players_board.config(text=text, fg=Settings.text_color, font=("Arial", 15))
