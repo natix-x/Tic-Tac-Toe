@@ -4,54 +4,67 @@ import random
 from menu import Menu
 from board import Board
 from title import Title
-from errors import Errors
+from nicknames_errors_handler import NicknamesErrorHandler
 import re
 
 
-class Start:
-    def __init__(self, menu_frame, board_frame, title_frame, root, restart_game):
-        self.board_frame = board_frame
-        self.menu_frame = menu_frame
-        self.title_frame = title_frame
-        self.root = root
-        self.restart_game = restart_game
-        self.label_font = ("Arial", 13)
+class GameInit:
+    """
+    initializes game, handles following functionalities: inserting by player nicknames, drawing the first player,
+    initialize_board_and_menu
+    """
 
+    def __init__(self, window_instance):
+        self.window_instance = window_instance
+        self.label_font = ("Arial", 13)
         self.name_players_label = Label(
-            self.board_frame,
+            self.window_instance.board_frame,
             text="Insert players' nicknames:",
             fg=Settings.text_color,
             background=Settings.background_color,
             font=("Arial", 15),
         )
         self.player_X_label = Label(
-            self.board_frame,
+            self.window_instance.board_frame,
             text="X:",
             fg=Settings.text_color,
             background=Settings.background_color,
             font=self.label_font,
         )
         self.player_O_label = Label(
-            self.board_frame,
+            self.window_instance.board_frame,
             text="O:",
             fg=Settings.text_color,
             background=Settings.background_color,
             font=self.label_font,
         )
-        self.player_X_entry = Entry(self.board_frame, font=self.label_font)
-        self.player_O_entry = Entry(self.board_frame, font=self.label_font)
+        self.player_X_entry = Entry(
+            self.window_instance.board_frame, font=self.label_font
+        )
+        self.player_O_entry = Entry(
+            self.window_instance.board_frame, font=self.label_font
+        )
         self.start_button = Button(
-            self.board_frame,
+            self.window_instance.board_frame,
             text="Start",
             bg=Settings.background_color,
             fg=Settings.text_color,
             font=self.label_font,
             command=lambda: self.start_game(),
         )
+        Title(self.window_instance.title_frame)
         self.starting_screen()
         self.player_X_name = None
         self.player_O_name = None
         self.chosen_player = None
+
+    @staticmethod
+    def destroy_widget(frame):
+        """
+        destroys widgets present on the frame
+        """
+        for widget in frame.winfo_children():
+            widget.destroy()
 
     def starting_screen(self):
         """
@@ -75,15 +88,17 @@ class Start:
         """
         self.player_X_name = self.player_X_entry.get().strip()
         self.player_X_name = re.sub("\s\s+", " ", self.player_X_name)
+        # change many inserted by player spaces to one space
         self.player_O_name = self.player_O_entry.get().strip()
         self.player_O_name = re.sub("\s\s+", " ", self.player_O_name)
+        # change many inserted by player spaces to one space
 
-        errors_check = Errors(self.player_X_name, self.player_O_name)
+        errors_check = NicknamesErrorHandler(self.player_X_name, self.player_O_name)
 
         if errors_check.error_occurrence() is False:
-            self.destroy_widget(self.board_frame)
+            self.destroy_widget(self.window_instance.board_frame)
             self.drawing_first_player()
-            self.board_frame.after(2000, self.initialize_board_and_menu)
+            self.window_instance.board_frame.after(2000, self.initialize_board_and_menu)
         else:
             self.starting_screen()
 
@@ -94,7 +109,7 @@ class Start:
         """
         self.chosen_player = random.choice([self.player_X_name, self.player_O_name])
         drawing_label = Label(
-            self.board_frame,
+            self.window_instance.board_frame,
             text=f"First player:",
             fg=Settings.text_color,
             background=Settings.background_color,
@@ -103,14 +118,16 @@ class Start:
         drawing_label.place(relx=0.6, rely=0.3, anchor="center")
 
         drawing_label = Label(
-            self.board_frame,
+            self.window_instance.board_frame,
             text=self.chosen_player,
             fg=Settings.text_color,
             background=Settings.background_color,
             font=("Arial", 35),
         )
         drawing_label.place(relx=0.6, rely=0.5, anchor="center")
-        self.board_frame.after(2000, lambda: self.destroy_widget(self.board_frame))
+        self.window_instance.board_frame.after(
+            2000, lambda: self.destroy_widget(self.window_instance.board_frame)
+        )
 
     def initialize_board_and_menu(self):
         """
@@ -118,25 +135,17 @@ class Start:
         :return: game board, menu and updated title frame
         """
         right_menu = Menu(
-            self.menu_frame,
+            self.window_instance.menu_frame,
             first_player=self.define_first_player(),
-            start_instance=self,
+            game_instance=self,
         )
-        board = Board(self.board_frame, right_menu)
+        board = Board(self.window_instance.board_frame, right_menu)
         right_menu.restart_button(board)
         Title(
-            self.title_frame,
+            self.window_instance.title_frame,
             player_X_name=self.player_X_name,
             player_O_name=self.player_O_name,
         ).player_board_update()
-
-    @staticmethod
-    def destroy_widget(frame):
-        """
-        destroys widgets present on the frame
-        """
-        for widget in frame.winfo_children():
-            widget.destroy()
 
     def define_first_player(self):
         """

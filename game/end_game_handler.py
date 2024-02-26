@@ -1,9 +1,13 @@
 from tkinter import messagebox
 
 
-class End:
-    def __init__(self, start_instance, winner):
-        self.start_instance = start_instance
+class EndGameHandler:
+    """
+    handler of exit game button
+    """
+
+    def __init__(self, game_instance, winner):
+        self.game_instance = game_instance
         self.winner = winner
 
     def end_game(self):
@@ -11,6 +15,7 @@ class End:
         asks if players really want to end current game. If yes displays winning message,
         asks if they want to start again and then restarts whole
         game. If no: closes game window
+        :return: three messageboxes
         """
         end = messagebox.askyesno(
             "Game Over",
@@ -27,16 +32,15 @@ class End:
                 default="yes",
             )
             if again:
-                self.start_instance.restart_game()
+                self.game_instance.window_instance.restart_game()
             else:
-                self.start_instance.root.destroy()
+                self.game_instance.window_instance.end_game()
 
     def winning_message(self):
         """
         displays final results according to scoreboard
         :return: message about final results
         """
-        # Remove the condition for checking if the winner is None
         if self.winner is not None:
             win_message = messagebox.showinfo("Results", f"The winner is {self.winner}")
         else:

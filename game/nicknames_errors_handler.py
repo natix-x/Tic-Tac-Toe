@@ -23,7 +23,7 @@ class Errors:
                 self.show_error_message("Insert all players' nicknames")
                 return True
             elif len(player) > 10:
-                self.show_error_message("Nicknames should have less than 9 characters")
+                self.show_error_message("Nicknames should have less than 10 characters")
                 return True
         return False
 

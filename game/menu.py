@@ -1,13 +1,21 @@
 from tkinter import Label, Button
 from settings import Settings
-from end import End
+from end_game_handler import EndGameHandler
 
 
 class Menu:
-    def __init__(self, localization, first_player=None, start_instance=None):
+    """
+    creates updatable scoreboard, turn board, creates restart button and exit button
+    """
+
+    def __init__(self, localization, first_player=None, game_instance=None):
         self.localization = localization
         self.current_player = first_player
-        self.start_instance = start_instance
+        self.game_instance = game_instance
+        self.end_process = None
+        self.winner_of_the_whole_game = None
+        self.player_O_score = 0
+        self.player_X_score = 0
         self.font = ("Arial", 13)
         self.scoreboard = Label(
             self.localization, background=Settings.background_color, width=10, height=8
@@ -45,6 +53,23 @@ class Menu:
             fg=Settings.text_color,
         )
         self.who_is_the_winner()
+
+    def who_is_the_winner(self):
+        """
+        displays who the winner of the whole game is
+        :return: winner's nickname or None
+        """
+        if self.player_X_score != self.player_O_score:
+            if self.player_X_score > self.player_O_score:
+                self.winner_of_the_whole_game = self.game_instance.player_X_name
+            else:
+                self.winner_of_the_whole_game = self.game_instance.player_O_name
+        else:
+            self.winner_of_the_whole_game = None
+
+        self.end_process = EndGameHandler(
+            self.game_instance, winner=self.winner_of_the_whole_game
+        )
 
     def whose_turn(self, current_player):
         """
@@ -98,20 +123,3 @@ class Menu:
             font=self.font,
         )
         end_button.place(x=30, y=350)
-
-    def who_is_the_winner(self):
-        """
-        displays who the winner of the whole game is
-        :return: winner's nickname or None
-        """
-        if self.player_X_score != self.player_O_score:
-            if self.player_X_score > self.player_O_score:
-                self.winner_of_the_whole_game = self.start_instance.player_X_name
-            else:
-                self.winner_of_the_whole_game = self.start_instance.player_O_name
-        else:
-            self.winner_of_the_whole_game = None
-
-        self.end_process = End(
-            self.start_instance, winner=self.winner_of_the_whole_game
-        )

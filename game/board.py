@@ -5,6 +5,10 @@ from settings import Settings
 
 
 class Board:
+    """
+    initializes game board with clickable buttons, makes moves and handles game board restart
+    """
+
     def __init__(self, localization, menu):
         self.localization = localization
         self.menu = menu
@@ -12,9 +16,9 @@ class Board:
         self.buttons = [[" " for _ in range(3)] for _ in range(3)]
         self.canvas = None
         self.canvases = [[None for _ in range(3)] for _ in range(3)]
-        self.buttons_initiation()
+        self.buttons_init()
 
-    def buttons_initiation(self):
+    def buttons_init(self):
         """
         creates buttons on the board
         :return: Buttons matrix (3 x 3)
@@ -94,6 +98,7 @@ class Board:
         blocks the buttons on the board if on the board winning combination is still present
         :param message: message to display on the messagebox after winning or tie
         :param canvases: canvases empty or with drawn X or 0 present on the board
+        :return: updated or current board
         """
         restart = messagebox.askyesno(
             "Game Over",
