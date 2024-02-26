@@ -22,12 +22,12 @@
 * [General info](#general-info)
 * [Requirements](#requirements-and-used-libraries)
 * [Setup](#setup)
-* [Status](#setup)
+* [Game functionalities](#game-functionalities)
 ### General info
 The aim of this project is to create simple Player vs Player (PvP) Game: Tic Tac Toe fully written in python.
 It focuses on developing skills connected with OOP.
 ### Requirements and used libraries
-Python 3.8+, tkinter
+Python 3.11+, tkinter
 ### Setup
 1. First, clone this repository:
    ```sh
@@ -37,8 +37,7 @@ Python 3.8+, tkinter
 ```sh
    python main.py
    ```
-### Status
-Game functionalities:
+### Game functionalities:
 * creates game board 
 * presents whose turn is now
 * adds points to scoreboard after each round
